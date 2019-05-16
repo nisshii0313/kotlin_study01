@@ -3,26 +3,16 @@ package com.myexample.sampleapp
 import android.support.v7.app.AppCompatActivity
 import android.os.Bundle
 import android.os.Handler
-import android.widget.TextView
-import android.widget.Button
+import kotlinx.android.synthetic.main.activity_main.*
 
 class MainActivity : AppCompatActivity() {
-
 
     val handler = Handler()
     var timeValue = 0
 
-
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
-
-        val timeText = findViewById(R.id.timeText) as TextView
-        val startButton = findViewById(R.id.start) as Button
-        val stopButton = findViewById(R.id.stop) as Button
-        val resetButton = findViewById(R.id.reset) as Button
-        val rapButton = findViewById(R.id.rap) as Button
-        val historyText = findViewById(R.id.rapText) as TextView
 
         val runnable = object : Runnable {
             override fun run() {
@@ -36,22 +26,22 @@ class MainActivity : AppCompatActivity() {
         }
 
         fun record() {
-            historyText.text = timeText.text
+            rapText.text = timeText.text
         }
 
-        startButton.setOnClickListener {
+        start.setOnClickListener {
             handler.post(runnable)
         }
 
-        rapButton.setOnClickListener {
+        rap.setOnClickListener {
             record()
         }
 
-        stopButton.setOnClickListener {
+        stop.setOnClickListener {
             handler.removeCallbacks(runnable)
         }
 
-        resetButton.setOnClickListener {
+        reset.setOnClickListener {
             handler.removeCallbacks(runnable)
             timeValue = 0
             timeToText()?.let {
